@@ -3,8 +3,11 @@ require("dotenv").config();
 const express = require("express");
 const router = express.Router();
 const auth = require('./../controllers/authController')
+const {loginValidation} = require('./../utils/loginValidation')
 
 
+
+router.use('/validation', loginValidation)
 
 // alumni validation (to registration route) route
 router
@@ -15,7 +18,7 @@ router
 // alumni registration route
 router
   .route("/auth/alumni")
-  .get(auth.alumniRegisterGet)
+  // .get(auth.alumniRegisterGet)
   .post(auth.alumniRegisterPost);
 
 // student registration route
