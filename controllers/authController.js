@@ -4,26 +4,27 @@ const mongoose = require('mongoose')
 
 const alumniModel = require('./../model/alumniModel')
 const studentModel = require("./../model/studentModel");
+const jwtValidaton = require('./../utils/tokenValidation')
+
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 // token validation controllers
 exports.validationGet = (req, res, next) => {
-  res.send("this the validation route");
+
+   res.send('here you will get validation input box')
+
 };
 
 exports.validationPost = (req, res, next) => {
   let token = req.body.token;
 
   if (tokenValidation(token)) {
-    return res.send("you will end up with user registration");
+    return res.render('alumniRegistration')
   }
 };
 
 // alumni registration controller
-exports.alumniRegisterGet = (req, res, next) => {
-  res.send("this is alumni resgister get route");
-};
 
 exports.alumniRegisterPost = async (req, res, next) => {
   const { email, name, password, designation, company, school } = req.body;
@@ -57,9 +58,8 @@ exports.alumniRegisterPost = async (req, res, next) => {
 };
 
 // student registration controller
-
 exports.studentRegisterGet = (req, res, next) => {
-  res.send("student register route");
+  res.render('studentRegistration')
 };
 
 exports.studentRegisterPost = async (req, res, next) => {
