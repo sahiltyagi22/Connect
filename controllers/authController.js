@@ -6,8 +6,11 @@ const alumniModel = require('./../model/alumniModel')
 const studentModel = require("./../model/studentModel");
 const jwtValidaton = require('./../utils/tokenValidation')
 
+
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const upload = require('./../utils/multer')
+
 
 // token validation controllers
 exports.validationGet = (req, res, next) => {
@@ -26,36 +29,55 @@ exports.validationPost = (req, res, next) => {
 
 // alumni registration controller
 
+exports.alumniRegisterGet = async(req,res,next)=>{
+  res.render('alumniRegistration')
+}
+
 exports.alumniRegisterPost = async (req, res, next) => {
-  const { email, name, password, designation, company, school } = req.body;
 
-  const alumniExists = await alumniModel.findOne({ email: email });
-  if (alumniExists) {
-    res.send("user already exists");
-    res.end();
-  } else {
-    const hashedPassword = await bcrypt.hash(password, 10);
+  try {
+    // Handle file upload using multer middleware
+    upload.single('profilePicture')(req, res, async function (err) {
+      if (err) {
+        return res.status(400).json({ error: 'Error uploading profile picture' });
+      }
 
-    const newAlumni = new alumniModel({
-      name: name,
-      email: email,
-      password: hashedPassword,
-      designation: designation,
-      company: company,
-      school: school,
+      // Extract other form data from the request body
+      const { email, name, password, designation, company, school } = req.body;
+
+      // Get file path of uploaded image
+      const profilePicture = req.file.filename
+
+      console.log(profilePicture);
+
+      // Create a new alumni instance
+      const newAlumni = new alumniModel({
+        name: name,
+        email: email,
+        password: password, // Remember to hash password if not already done
+        designation: designation,
+        company: company,
+        school: school,
+        profile: profilePicture // Save image path in alumni database
+      });
+
+      // Save alumni to database
+      await newAlumni.save();
+
+      const token = jwt.sign(
+        { email: newAlumni.email, id: newAlumni._id, role: newAlumni.role },
+        process.env.JWT_SECRET,
+        { expiresIn: process.env.EXPIRES_IN }
+      );
+  
+      res.status(201).json({ token , newAlumni});
     });
-
-    await newAlumni.save();
-
-    const token = jwt.sign(
-      { email: newAlumni.email, id: newAlumni._id, role: newAlumni.role },
-      process.env.JWT_SECRET,
-      { expiresIn: process.env.EXPIRES_IN }
-    );
-
-    res.status(201).json({ token });
+  } catch (error) {
+    next(error); // Pass error to the error handling middleware
   }
-};
+  
+  }
+
 
 // student registration controller
 exports.studentRegisterGet = (req, res, next) => {
