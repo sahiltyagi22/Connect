@@ -1,45 +1,40 @@
+<!-- registration_form_alumni.ejs -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Alumni Registration</title>
-  <link rel="stylesheet" href="/styles.css"> <!-- Link to your CSS file -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alumni Registration</title>
+    <!-- Include your CSS file -->
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-  <div class="container">
-    <h2>Alumni Registration</h2>
-    <form action="/alumni/register" method="POST">
-      <div class="form-group">
+    <h1>Alumni Registration</h1>
+    <form action="/auth/alumni" method="POST" enctype="multipart/form-data">
         <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required>
-      </div>
-      <div class="form-group">
+        <input type="text" id="name" name="name" required><br><br>
+
         <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
-      </div>
-      <div class="form-group">
+        <input type="email" id="email" name="email" required><br><br>
+
         <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-      </div>
-      <div class="form-group">
+        <input type="password" id="password" name="password" required><br><br>
+
         <label for="designation">Designation:</label>
-        <input type="text" id="designation" name="designation" required>
-      </div>
-      <div class="form-group">
+        <input type="text" id="designation" name="designation" required><br><br>
+
         <label for="company">Company:</label>
-        <input type="text" id="company" name="company" required>
-      </div>
-      <div class="form-group">
-        <label for="role">Role:</label>
-        <input type="text" id="role" name="role" required>
-      </div>
-      <div class="form-group">
+        <input type="text" id="company" name="company" required><br><br>
+
         <label for="school">School:</label>
-        <input type="text" id="school" name="school" required>
-      </div>
-      <button type="submit">Register</button>
+        <input type="text" id="school" name="school" required><br><br>
+
+        <!-- Input field for uploading profile picture -->
+        <label for="profilePicture">Profile Picture:</label>
+        <input type="file" id="profilePicture" name="profilePicture"><br><br>
+
+        <button type="submit">Register</button>
     </form>
-  </div>
 </body>
 </html>
