@@ -18,7 +18,7 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 
-mongoose.connect('mongodb://127.0.0.1/alumni')
+mongoose.connect(process.env.CONNECTION)
 .then(()=>{
     console.log("db connected");
 })
