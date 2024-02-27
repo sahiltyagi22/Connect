@@ -1,6 +1,8 @@
 let validationToken = "12345";
 
 const mongoose = require('mongoose')
+const cookie = require('cookie');
+
 
 const alumniModel = require('./../model/alumniModel')
 const studentModel = require("./../model/studentModel");
@@ -15,7 +17,7 @@ const upload = require('./../utils/multer')
 // token validation controllers
 exports.validationGet = (req, res, next) => {
 
-   res.send('here you will get validation input box')
+   res.render('validation')
 
 };
 
@@ -23,18 +25,17 @@ exports.validationPost = (req, res, next) => {
   let token = req.body.token;
 
   if (tokenValidation(token)) {
-    return res.render('alumniRegistration')
+    return res.render('aluRegis')
   }
 };
 
 // alumni registration controller
 
-exports.alumniRegisterGet = async(req,res,next)=>{
-  res.render('alumniRegistration')
-}
+// exports.alumniRegisterGet = async(req,res,next)=>{
+//   res.render('alumniRegistration')
+// }
 
 exports.alumniRegisterPost = async (req, res, next) => {
-
   try {
     // Handle file upload using multer middleware
     upload.single('profilePicture')(req, res, async function (err) {
@@ -46,15 +47,17 @@ exports.alumniRegisterPost = async (req, res, next) => {
       const { email, name, password, designation, company, school } = req.body;
 
       // Get file path of uploaded image
-      const profilePicture = req.file.filename
+      const profilePicture = req.file.filename;
 
-      console.log(profilePicture);
+      // encrypting the password 
+
+      const hashedPassword = await bcrypt.hash(password, 10);
 
       // Create a new alumni instance
       const newAlumni = new alumniModel({
         name: name,
         email: email,
-        password: password, // Remember to hash password if not already done
+        password: hashedPassword, // Remember to hash password if not already done
         designation: designation,
         company: company,
         school: school,
@@ -69,19 +72,20 @@ exports.alumniRegisterPost = async (req, res, next) => {
         process.env.JWT_SECRET,
         { expiresIn: process.env.EXPIRES_IN }
       );
-  
-      res.status(201).json({ token , newAlumni});
+
+      // Set token in cookie
+      res.setHeader('Set-Cookie', `token=${token}; Path=/; HttpOnly; SameSite=Strict; Max-Age=${process.env.EXPIRES_IN};`);
+
+      res.redirect('/')
     });
   } catch (error) {
     next(error); // Pass error to the error handling middleware
   }
-  
-  }
-
+};
 
 // student registration controller
 exports.studentRegisterGet = (req, res, next) => {
-  res.render('studentRegistration')
+  res.render('stuRegis')
 };
 
 exports.studentRegisterPost = async (req, res, next) => {
@@ -110,44 +114,54 @@ exports.studentRegisterPost = async (req, res, next) => {
     { expiresIn: process.env.EXPIRES_IN }
   );
 
-  res.status(201).json({ token });
+  res.setHeader('Set-Cookie', `token=${token}; Path=/; HttpOnly; SameSite=Strict; Max-Age=${process.env.EXPIRES_IN};`);
+
+  return res.redirect('/')
 };
 
 
 // Login controller
 exports.loginGet = (req,res)=>{
-    res.send("this is the login route");
+  if(req.cookies.token){
+    return res.redirect('/')
+  }
+    res.render('login')
 }
 
-exports.loginPost = async(req,res,next)=>{
-    const { email, password } = req.body;
-    console.log(email);
-    console.log(password);
-    try {
-      const student = await studentModel.findOne({ email:email });
+exports.loginPost = async (req, res, next) => {
+  const { email, password } = req.body;
+  console.log(email);
+  console.log(password);
 
-      if (student && bcrypt.compareSync(password, student.password)) {
-        const token = jwt.sign({ email: student.email , id:student._id, role:student.role }, process.env.JWT_SECRET, {
-          expiresIn:  process.env.EXPIRES_IN,
-        });
-        return res.status(200).json({ token });
+  try {
+      let user;
+
+      // Check if the user is a student
+      user = await studentModel.findOne({ email: email });
+
+      // If user is not found as a student, check if they are an alumni
+      if (!user) {
+          user = await alumniModel.findOne({ email: email });
       }
 
-      const alumni = await alumniModel.findOne({ email:email });
 
-      if (alumni && bcrypt.compareSync(password, alumni.password)) {
-        const token = jwt.sign({ email: alumni.email , id:alumni._id, role:alumni.role },  process.env.JWT_SECRET, {
-          expiresIn:  process.env.EXPIRES_IN,
-        });
-        return res.status(200).json({ token });
+
+      // If user is found and password matches, generate token and redirect
+      if (user && bcrypt.compareSync(password, user.password)) {
+          const token = jwt.sign({ email: user.email, id: user._id, role: user.role }, process.env.JWT_SECRET, {
+              expiresIn: process.env.EXPIRES_IN,
+          });
+          res.cookie('token', token, { httpOnly: true, sameSite: 'strict', expiresIn: process.env.EXPIRES_IN * 1000 });
+          return res.redirect('/');
       }
 
+      // If no user found or password doesn't match, return invalid credentials
       return res.status(401).json({ error: "Invalid credentials" });
-    } catch (error) {
+  } catch (error) {
       console.error(error);
       return res.status(500).json({ error: "Internal Server Error" });
-    }
-}
+  }
+};
 
 
 

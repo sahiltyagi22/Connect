@@ -2,6 +2,7 @@ require('dotenv').config()
 
 const express = require('express')
 const mongoose = require('mongoose')
+const cookieParser = require('cookie-parser');
 const ejs = require('ejs')
 const path = require('path')
 const app = express()
@@ -12,6 +13,7 @@ const authRoute = require('./routes/authRoute')
 const articleRoute = require('./routes/articles')
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cookieParser())
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
@@ -31,7 +33,7 @@ app.use(express.json())
 
 
 app.get('/',(req,res)=>{
-    res.send("this is the homepage")
+    res.render('homepage')
 })
 
 

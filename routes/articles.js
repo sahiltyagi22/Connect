@@ -2,57 +2,33 @@ const express = require('express')
 const router = express.Router()
 const {tokenValidation} = require('./../utils/tokenValidation')
 
-const articleModel = require('./../model/articlesModel')
-const alumniModel = require('../model/alumniModel')
+const articleController = require('./../controllers/articleController')
 
 router.use('/article/new' , tokenValidation)
 router.use('/myarticles' , tokenValidation)
+router.use('/new-article' , tokenValidation)
 
-router.route('/article/new')
-.get((req,res)=>{
-    if(req.user.role !== "alumni"){
-        return res.send('you are not authorized')
-    }
-    res.send('here you can create and article')
-})
-.post(async(req,res)=>{
-    const {title , body}  = req.body
-
-    let creator = req.user.id
-
-    const newArticle = new articleModel({
-        title :title,
-        body:body,
-        creator :creator
-    })
-
-    await  newArticle.save()
-
-    const alumni = await alumniModel.findById({_id : creator})
-    console.log(alumni);
-
-    alumni.articles.push(newArticle._id)
-    await alumni.save()
-
-   
-
-    res.send(newArticle)
-})
+// getting all articles
+router.route('/articles')
+.get(articleController.allArticlesGet)
 
 
-router.route('/myArticles')
-.get(async(req,res)=>{
-    if(req.user.role!=='alumni'){
-        return res.send('you are not authorized')
-    }
- 
-      const alumniId = req.user.id;
-    
-      const alumniArticles = await alumniModel
-        .findOne({ _id: alumniId })
-        .populate("articles");
-    
-      res.send(alumniArticles.articles);
-})
+// getting articles by Id
+router.route('/article/:id')
+.get(articleController.articleById)
+
+router.route('/new-article')
+.get(articleController.newArticleGet)
+.post(articleController.postNewArticle)
+
+router.route('/update-article/:id')
+.get(articleController.updateArticleGet)
+.post(articleController.updateArticlePost);
+
+router.route('/delete-article/:id')
+.get(articleController.deleteArticle)
+
+
+
 
 module.exports = router

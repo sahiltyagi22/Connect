@@ -1,0 +1,19 @@
+<!-- userProfile.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+</head>
+<body>
+    <h1>User Profile</h1>
+    <div>
+        <h2>Name: <%= alumni.name %></h2>
+        <h3>Email: <%= alumni.email %></h3>
+        <!-- Display the profile picture -->
+        <img src="/images/uploads/<%= alumni.profile %>" alt="Profile Picture">
+    </div>
+</body>
+</html>

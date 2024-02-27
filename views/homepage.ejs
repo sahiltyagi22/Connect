@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Alumni</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .slideshow-container {
+            max-width: 80%;
+            margin: auto;
+            position: relative;
+            overflow: hidden;
+            margin-top: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            height: 300px;
+        }
+
+        .mySlides img {
+            width: 100%;
+            display: none;
+        }
+
+        .prev,
+        .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 16px;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            transition: 0.6s ease;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+
+        .prev:hover,
+        .next:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .dot {
+            cursor: pointer;
+            height: 15px;
+            width: 15px;
+            margin: 0 2px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+            transition: background-color 0.6s ease;
+        }
+
+        .active,
+        .dot:hover {
+            background-color: #717171;
+        }
+
+        @keyframes fade {
+            from {
+                opacity: .4
+            }
+
+            to {
+                opacity: 1
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="bg-gray-800 text-white">
+        <nav class="container mx-auto flex justify-between items-center py-4">
+            <div class="navbar-brand">
+                <a href="/" class="logo text-xl font-bold">Connect</a>
+            </div>
+            <div class="navbar-links flex space-x-4">
+                <div class="nav-item relative">
+                    <button id="alumniBtn" class="nav-link focus:outline-none">Alumni</button>
+                    <ul id="alumniDropdown" class="dropdown-menu hidden absolute bg-white shadow-lg rounded-md mt-1">
+                        <li><a href="/alumni/ict" class="block px-4 py-2 text-gray-800">SOICT</a></li>
+                        <li><a href="/alumni/soe" class="block px-4 py-2 text-gray-800">SOE 2</a></li>
+                        <li><a href="/alumni/sobt" class="block px-4 py-2 text-gray-800">SOBT</a></li>
+                    </ul>
+                </div>
+                <a href="/meetings" class="nav-link">Meetings</a>
+                <a href="/articles" class="nav-link">Articles</a>
+                <a href="/auth/login" class="nav-link">Login</a>
+                <div class="nav-item relative">
+                    <button id="profileBtn" class="nav-link focus:outline-none">Profile</button>
+                    <ul id="profileDropdown" class="dropdown-menu hidden absolute bg-white shadow-lg rounded-md mt-1">
+                        <li><a href="/myArticles" class="block px-4 py-2 text-gray-800">My Articles</a></li>
+                        <li><a href="/mymeet" class="block px-4 py-2 text-gray-800">My Meetings</a></li>
+                        <li><a href="/auth/logout" class="block px-4 py-2 text-gray-800">Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="slideshow-container">
+            <div class="mySlides fade">
+                <img src="/images/uploads/d3871398-0c43-440e-b82a-0ec2a47beb22.png" alt="Slide 1">
+            </div>
+
+            <div class="mySlides fade">
+                <img src="public/images/uploads/2deb42c4-1804-452c-8fb9-b5e4ea6a0683.png" alt="Slide 2">
+            </div>
+
+            <div class="mySlides fade">
+                <img src="" alt="Slide 3">
+            </div>
+
+            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+        </div>
+
+        <div style="text-align:center">
+            <span class="dot" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+            <span class="dot" onclick="currentSlide(3)"></span>
+        </div>
+    </main>
+
+    <footer>
+        <!-- Your footer content here -->
+    </footer>
+
+    <script>
+        // Function to toggle dropdown menu visibility on click
+        function toggleDropdown(btnId, dropdownId) {
+            const btn = document.getElementById(btnId);
+            const dropdown = document.getElementById(dropdownId);
+            dropdown.classList.toggle('hidden');
+        }
+
+        // Add event listeners to Alumni and Profile buttons
+        document.getElementById('alumniBtn').addEventListener('click', function() {
+            toggleDropdown('alumniBtn', 'alumniDropdown');
+        });
+
+        document.getElementById('profileBtn').addEventListener('click', function() {
+            toggleDropdown('profileBtn', 'profileDropdown');
+        });
+
+
+        var slideIndex = 0;
+        showSlides();
+
+        function showSlides() {
+            var i;
+            var slides = document.getElementsByClassName("mySlides");
+            var dots = document.getElementsByClassName("dot");
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) {
+                slideIndex = 1;
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " active";
+            setTimeout(showSlides, 3000); // Change image every 3 seconds
+        }
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+    </script>
+</body>
+
+</html>

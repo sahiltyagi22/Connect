@@ -34,4 +34,14 @@ router
   .get(auth.loginGet)
   .post(auth.loginPost);
 
+// logout 
+
+router.route('/auth/logout')
+.get((req,res)=>{
+  res.clearCookie('token');
+    
+    // Redirect the user to the login page or homepage
+    res.redirect('/');
+})
+
 module.exports = router;

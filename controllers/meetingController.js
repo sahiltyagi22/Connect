@@ -5,44 +5,52 @@ const { tokenValidation } = require("./../utils/tokenValidation");
 
 
 // getting all meetings
-exports.allMeetingsGet = (req, res, next) => {
-  res.send("this is where meeting creating form will be there");
+exports.allMeetingsGet = async(req, res, next) => {
+  const meetings = await meetingModel.find({})
+
+  if(!meetings){
+     res.status(404).json({
+      message : "not meetings available"
+    })
+  }
+
+  return res.render('allMeetings' , {meetings :meetings})
 };
 
 
 
-// posting meeting
-exports.meetingPost = async (req, res, next) => {
-  if (req.user.role !== "alumni") {
-    return res.send("you are forbidden from creating meetings");
+// creating new meeting
+exports.newMeetingGet = async (req, res, next) => {
+  if(req.user.role!=='alumni'){
+    return res.redirect('/meetings')
   }
-
-  console.log(req.user.role);
-  const { title, date, time, link } = req.body;
-
-  const host = req.user.id;
-
-  console.log(host);
-
-  if (!title || !date || !time || !link) {
-    return res.send("Please provide all the required fields");
-  }
-
-  const meeting = await meetingModel.create({
-    title: title,
-    date: date,
-    time: time,
-    host: host,
-    link: link,
-  });
-
-  // updating alumni's meetings array
-  await alumniModel.findByIdAndUpdate(host, {
-    $push: { meetings: meeting._id },
-  });
-
-  res.send(meeting);
+  return res.render('newMeeting')
 };
+
+exports.newMeetingPost = async(req,res,next)=>{
+  let {title , date , time, link} = req.body 
+
+ let host = req.user.id
+
+ const meeting = new meetingModel({
+  title : title,
+  date : date,
+  time :time,
+  host :host,
+  link : link
+ })
+
+ await meeting.save()
+
+//  updating meeting in alumni section
+const alumni = await alumniModel.findById(host)
+alumni.meetings.push(meeting._id)
+
+await alumni.save()
+ 
+
+ return res.redirect('/meetings')
+}
 
 
 // alumni's meetings list route
@@ -53,11 +61,13 @@ exports.individualAlumniMeets = async(req,res,next)=>{
     
       const alumniId = req.user.id;
     
-      const alumniMeetings = await alumniModel
+      const meetings = await alumniModel
         .findOne({ _id: alumniId })
         .populate("meetings");
+
     
-      res.send(alumniMeetings.meetings);
+    
+      res.render('alumniMeetings', {meetings:meetings.meetings})
 }
 
 

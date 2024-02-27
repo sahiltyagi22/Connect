@@ -1,0 +1,29 @@
+<!-- article.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <title>Your Blog</title>
+</head>
+<body class="font-sans bg-purple-100">
+
+    <!-- Title Section -->
+    <section class="bg-blue-500 text-white p-8 text-center">
+        <div class="container mx-auto">
+            <h1 class="text-5xl font-semibold mb-4"><%= article.title %></h1>
+        </div>
+    </section>
+
+    <!-- Blog Body Section -->
+    <section class="container mx-auto mt-8">
+        <div class="prose lg:prose-xl text-center text-gray-800">
+            <!-- Blog body content goes here -->
+            <p><%= article.body %></p>
+        </div>
+    </section>
+
+</body>
+</html>

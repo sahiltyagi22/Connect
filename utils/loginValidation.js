@@ -8,8 +8,5 @@ exports.loginValidation = function (req, res, next) {
     }else{
         return res.redirect('/')
     }
-
-    
-
    next()
 };

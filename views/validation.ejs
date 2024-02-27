@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verification</title>
+    <link rel="stylesheet" href="/stylesheet/styles.css">
+</head>
+
+<body>
+    <div class="verification-container">
+        <h2>Verification</h2>
+        <form action="/validation" method="POST">
+            <div class="form-group">
+                <label for="code">Enter Code:</label>
+                <input type="text" id="code" name="token" required>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+        <div class="register-link">
+            <p>Not registered yet? <a href="/auth/student">Register as a student</a></p>
+        </div>
+    </div>
+</body>
+
+</html>
