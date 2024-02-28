@@ -31,19 +31,43 @@ app.use(express.urlencoded({extended:true}))
 app.use(express.json())
 
 
-
+// home route
 app.get('/',(req,res)=>{
     res.render('homepage')
 })
 
-
+// auth route
 app.use(authRoute)
+
+// meeting route
 app.use(meetingRoute)
+
+// alumni route
 app.use(alumniRoute)
+
+// article route
 app.use(articleRoute)
 
+
+// error handeling middleware
+app.use((err, req, res, next) => {
+    
+    console.log(err.message);
+    console.error(err.stack);
+
+    // Set response status code
+    res.status(err.status || 500);
+
+    let message = err.message
+
+    // Render a page with an error message
+    res.render('error', { message: message|| "OOPS! Something went wrong. Please try again later" });
+});
+
+
+
 app.all("*" , (req,res)=>{
-    res.send("404 not found")
+   res.render('notFound')
 })
 
 
