@@ -6,7 +6,8 @@ const { tokenValidation } = require("./../utils/tokenValidation");
 
 // getting all meetings
 exports.allMeetingsGet = async(req, res, next) => {
-  const meetings = await meetingModel.find({})
+  try {
+    const meetings = await meetingModel.find({})
 
   if(!meetings){
      res.status(404).json({
@@ -15,20 +16,30 @@ exports.allMeetingsGet = async(req, res, next) => {
   }
 
   return res.render('allMeetings' , {meetings :meetings})
+  } catch (err) {
+    next(err)
+  }
+  
 };
 
 
 
 // creating new meeting
 exports.newMeetingGet = async (req, res, next) => {
-  if(req.user.role!=='alumni'){
-    return res.redirect('/meetings')
+  try {
+    if(req.user.role!=='alumni'){
+      return res.redirect('/meetings')
+    }
+    return res.render('newMeeting')
+  } catch (err) {
+    next(err)
   }
-  return res.render('newMeeting')
+  
 };
 
 exports.newMeetingPost = async(req,res,next)=>{
-  let {title , date , time, link} = req.body 
+  try {
+    let {title , date , time, link} = req.body 
 
  let host = req.user.id
 
@@ -50,24 +61,33 @@ await alumni.save()
  
 
  return res.redirect('/meetings')
+  } catch (err) {
+    next(err)
+  }
+  
 }
 
 
 // alumni's meetings list route
 exports.individualAlumniMeets = async(req,res,next)=>{
+  try {
     if (req.user.role !== "alumni") {
-        return res.redirect("/");
-      }
-    
-      const alumniId = req.user.id;
-    
-      const meetings = await alumniModel
-        .findOne({ _id: alumniId })
-        .populate("meetings");
+      return res.redirect("/");
+    }
+  
+    const alumniId = req.user.id;
+  
+    const meetings = await alumniModel
+      .findOne({ _id: alumniId })
+      .populate("meetings");
 
+  
+  
+    res.render('alumniMeetings', {meetings:meetings.meetings})
+  } catch (err) {
+    next(err)
+  }
     
-    
-      res.render('alumniMeetings', {meetings:meetings.meetings})
 }
 
 
