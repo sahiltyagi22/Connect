@@ -26,11 +26,17 @@ exports.validationPost = (req, res, next) => {
 
     if (tokenValidation(token)) {
       return res.render("aluRegis");
-    }else{
+    } else {
+      // Create a new Error object with a message
+      const err = new Error('Token validation failed');
+      // Set status code if needed
+      err.status = 400; // Bad Request
+      // Pass the error to the next middleware
       next(err);
     }
   } catch (err) {
-    next(err)
+    // If an error occurs outside of the try block, handle it here
+    next(err);
   }
 };
 
