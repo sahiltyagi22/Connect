@@ -1,40 +1,63 @@
-<!-- registration_form_alumni.ejs -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alumni Registration</title>
-    <!-- Include your CSS file -->
-    <link rel="stylesheet" href="/stylesheet/styles.css">
+    <!-- Include Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-    <h1>Alumni Registration</h1>
-    <form action="/auth/alumni" method="POST" enctype="multipart/form-data">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required><br><br>
+<body class="bg-gray-100">
+    <!-- Navbar -->
+    <nav class="bg-black text-white shadow-lg">
+        <div class="container mx-auto px-4 py-2 flex justify-between items-center">
+            <div>
+                <a href="/" class="text-xl font-bold">Connect</a>
+            </div>
+            <div>
+                <ul class="flex space-x-4">
+                    <li><a href="/">Home</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required><br><br>
-
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required><br><br>
-
-        <label for="designation">Designation:</label>
-        <input type="text" id="designation" name="designation" required><br><br>
-
-        <label for="company">Company:</label>
-        <input type="text" id="company" name="company" required><br><br>
-
-        <label for="school">School:</label>
-        <input type="text" id="school" name="school" required><br><br>
-
-        <!-- Input field for uploading profile picture -->
-        <label for="profilePicture">Profile Picture:</label>
-        <input type="file" id="profilePicture" name="profilePicture"><br><br>
-
-        <button type="submit">Register</button>
-    </form>
+    <!-- Form container -->
+    <div class="container mx-auto px-4 py-8 flex justify-center items-center h-screen">
+        <div class="bg-white p-8 rounded-lg shadow-lg">
+            <h1 class="text-3xl font-bold mb-4">Alumni Registration</h1>
+            <form action="/auth/alumni" method="POST" enctype="multipart/form-data">
+                <div class="mb-4">
+                    <label for="name" class="block">Name:</label>
+                    <input type="text" id="name" name="name" class="form-input w-full border-2 border-gray-300 rounded-md h-10" required>
+                </div>
+                <div class="mb-4">
+                    <label for="email" class="block">Email:</label>
+                    <input type="email" id="email" name="email" class="form-input w-full border-2 border-gray-300 rounded-md h-10" required>
+                </div>
+                <div class="mb-4">
+                    <label for="password" class="block">Password:</label>
+                    <input type="password" id="password" name="password" class="form-input w-full border-2 border-gray-300 rounded-md h-10" required>
+                </div>
+                <div class="mb-4">
+                    <label for="designation" class="block">Designation:</label>
+                    <input type="text" id="designation" name="designation" class="form-input w-full border-2 border-gray-300 rounded-md h-10" required>
+                </div>
+                <div class="mb-4">
+                    <label for="company" class="block">Company:</label>
+                    <input type="text" id="company" name="company" class="form-input w-full border-2 border-gray-300 rounded-md h-10" required>
+                </div>
+                <div class="mb-4">
+                    <label for="school" class="block">School:</label>
+                    <input type="text" id="school" name="school" class="form-input w-full border-2 border-gray-300 rounded-md h-10" required>
+                </div>
+                <div class="mb-4">
+                    <label for="profilePicture" class="block">Profile Picture:</label>
+                    <input type="file" id="profilePicture" name="profilePicture" class="form-input w-full border-2 border-gray-300 rounded-md h-10">
+                </div>
+                <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded-lg shadow">Register</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

@@ -2,37 +2,57 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All Meetings</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body class="bg-gray-100">
-<div class="container mx-auto py-8 relative">
-    <h1 class="text-3xl font-bold mb-4">All Meetings</h1>
 
-    <!-- Iterate over meetings array -->
-    <% meetings.forEach(meeting => { %>
+<body class="bg-gray-100">
+    <!-- Navbar -->
+    <nav class="bg-black text-white shadow-lg">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div>
+                    <a href="/" class="text-xl font-bold">Connect</a>
+                </div>
+                <div>
+                    <ul class="flex space-x-4">
+                        <li><a href="/">Home</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto py-8 relative">
+        <h1 class="text-3xl font-bold mb-4">Meetings</h1>
+
+        <!-- Iterate over meetings array -->
+        <% meetings.forEach(meeting => { %>
         <div class="bg-white rounded-lg shadow-lg mb-4">
             <div class="p-6">
-                <h4 class="text-xl font-semibold mb-2"><%= meeting.title %></h4>
+                <!-- Style meeting title -->
+                <h4 class="text-xl font-bold underline mb-2"><%= meeting.title %></h4>
                 <p class="text-gray-600 mb-2">Date: <%= meeting.date %></p>
                 <p class="text-gray-600 mb-2">Time: <%= meeting.time %></p>
                 <!-- Use anchor tag for link -->
                 <p class="text-blue-500 mb-2">Link: <a href="<%= meeting.link %>" target="_blank"><%= meeting.link %></a></p>
             </div>
         </div>
-    <% }) %>
+        <% }) %>
 
-    <!-- Buttons container -->
-    <div class="absolute top-0 right-0 mt-4 mr-4">
-        <!-- New meeting button -->
-        <a href="/new-meeting" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-full shadow-lg mr-2">New Meeting</a>
+        <!-- Buttons container -->
+        <div class="absolute top-0 right-0 mt-4 mr-4">
+            <!-- New meeting button -->
+            <a href="/new-meeting" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-full shadow-lg mr-2">New Meeting</a>
 
-        <!-- My Meets button -->
-        <a href="/mymeet" class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-full shadow-lg">My Meets</a>
+            <!-- My Meets button -->
+            <a href="/mymeet" class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-full shadow-lg">My Meets</a>
+        </div>
     </div>
-</div>
 </body>
+
 </html>
