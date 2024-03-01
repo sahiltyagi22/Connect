@@ -10,7 +10,7 @@ exports.tokenValidation = function (req, res, next) {
     // Verify token and decode its payload
     jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
       if (err) {
-        return res.status(403).json({ error: 'Forbidden: Invalid token' });
+        return res.redirect('/auth/login')
       }
       // Attach decoded token payload to the request object
       req.user = decodedToken;
