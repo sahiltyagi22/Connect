@@ -9,7 +9,7 @@ exports.gettingSchoolWise = async (req, res, next) => {
     console.log(alumni);
     res.render("schoolWise", { alumni: alumni });
   } catch (err) {
-    next(err);
+    next(err , {message : "something went wrong! we are fixing it"})
   }
 };
 
@@ -20,7 +20,7 @@ exports.gettingIdWise = async (req, res, next) => {
 
     return res.render("alumniProfile", { alumni: alumni });
   } catch (err) {
-    next(err);
+    next(err , {message : "something went wrong! we are fixing it"})
   }
 };
 
@@ -66,7 +66,7 @@ exports.getAlumniArticles = async (req, res, next) => {
           // Render the EJS template with the articles data
           res.render("alumniArticles", { articles });
     } catch (err) {
-        next(err)
+      next(err , {message : "something went wrong! we are fixing it"})
     }
  
 };

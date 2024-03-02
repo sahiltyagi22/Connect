@@ -2,22 +2,24 @@ const meetingModel = require("./../model/meetingModel");
 const alumniModel = require("./../model/alumniModel");
 const pollModel = require("./../model/pollModel");
 const { tokenValidation } = require("./../utils/tokenValidation");
+const cron = require('node-cron')
+
 
 
 // getting all meetings
 exports.allMeetingsGet = async(req, res, next) => {
   try {
-    const meetings = await meetingModel.find({})
+    const meetings = await meetingModel.find({}).sort({date :1,time: 1})
 
-  if(!meetings){
-     res.status(404).json({
-      message : "not meetings available"
-    })
-  }
+  // if(!meetings){
+  //    res.status(404).json({
+  //     message : "not meetings available"
+  //   })
+  // }
 
   return res.render('allMeetings' , {meetings :meetings})
   } catch (err) {
-    next(err)
+    next(err , {message : 'something went wrong'})
   }
   
 };
@@ -32,7 +34,7 @@ exports.newMeetingGet = async (req, res, next) => {
     }
     return res.render('newMeeting')
   } catch (err) {
-    next(err)
+    next(err , {message : 'something went wrong'})
   }
   
 };
@@ -62,7 +64,7 @@ await alumni.save()
 
  return res.redirect('/meetings')
   } catch (err) {
-    next(err)
+    next(err , {message : 'something went wrong'})
   }
   
 }
@@ -85,7 +87,7 @@ exports.individualAlumniMeets = async(req,res,next)=>{
   
     res.render('alumniMeetings', {meetings:meetings.meetings})
   } catch (err) {
-    next(err)
+    next(err , {message : 'something went wrong'})
   }
     
 }

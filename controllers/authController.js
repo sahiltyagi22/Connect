@@ -28,7 +28,7 @@ exports.validationPost = (req, res, next) => {
       return res.render("aluRegis");
     } else {
       // Create a new Error object with a message
-      const err = new Error('Token validation failed');
+      const err = new Error('Invalid Token');
       // Set status code if needed
       err.status = 400; // Bad Request
       // Pass the error to the next middleware
@@ -36,7 +36,7 @@ exports.validationPost = (req, res, next) => {
     }
   } catch (err) {
     // If an error occurs outside of the try block, handle it here
-    next(err);
+    next(err  , {message : "something went wrong"});
   }
 };
 
@@ -51,16 +51,14 @@ exports.alumniRegisterPost = async (req, res, next) => {
     // Handle file upload using multer middleware
     upload.single("profilePicture")(req, res, async function (err) {
       if (err) {
-        return res
-          .status(400)
-          .json({ error: "Error uploading profile picture" });
+        return next(err , {message : "there is an error uploading profile"})
       }
 
       // Extract other form data from the request body
       const { email, name, password, designation, company, school } = req.body;
 
       // Get file path of uploaded image
-      const profilePicture = req.file.filename;
+      const profilePicture =  req.file ? req.file.filename : null;
 
       // encrypting the password
 
@@ -95,7 +93,7 @@ exports.alumniRegisterPost = async (req, res, next) => {
       res.redirect("/");
     });
   } catch (error) {
-    next(error);
+    next(error , {message : 'Something went wrong! Please try again later'});
   }
 };
 
@@ -104,7 +102,7 @@ exports.studentRegisterGet = (req, res, next) => {
   try {
     res.render("stuRegis");
   } catch (err) {
-    next(err);
+    next(err  , {message : 'something went wrong! we are fixing it '});
   }
 };
 
@@ -114,7 +112,7 @@ exports.studentRegisterPost = async (req, res, next) => {
 
     const studentExists = await studentModel.findOne({ email: email });
     if (studentExists) {
-      return res.send("user already exists");
+      return next(err , {message : "user already exists."})
     }
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -142,7 +140,7 @@ exports.studentRegisterPost = async (req, res, next) => {
 
     return res.redirect("/");
   } catch (err) {
-    next(err);
+    next(err , {message : "Something went Wrong! Please try again later"});
   }
 };
 
@@ -154,7 +152,7 @@ exports.loginGet = (req, res) => {
     }
     res.render("login");
   } catch (err) {
-    next(err);
+    next(err  , {message : "something went wrong! we are fixing it"});
   }
 };
 
@@ -194,7 +192,7 @@ exports.loginPost = async (req, res, next) => {
     throw err;
   } catch (err) {
     // Pass the error to the next middleware
-    next(err);
+    next(err , {message : 'something went wrong! we are fixing it'});
   }
 };
 

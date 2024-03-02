@@ -7,7 +7,7 @@ exports.allArticlesGet = async (req, res, next) => {
     const articles = await articleModel.find({});
     return res.render("allArticles", { articles: articles });
   } catch (err) {
-    next(err);
+    next(err , {message : "something went wrong! we are fixing it"})
   }
 };
 
@@ -19,7 +19,7 @@ exports.articleById = async (req, res, next) => {
     const article = await articleModel.findById(id);
     return res.render("singleArticle", { article: article });
   } catch (err) {
-    next(err);
+    next(err , {message : "something went wrong! we are fixing it"})
   }
 };
 
@@ -31,7 +31,7 @@ exports.newArticleGet = async (req, res, next) => {
     }
     res.render("newArticle");
   } catch (err) {
-    next(err);
+    next(err , {message : "something went wrong! we are fixing it"})
   }
 };
 
@@ -57,7 +57,7 @@ exports.postNewArticle = async (req, res, next) => {
 
     res.redirect("/articles");
   } catch (err) {
-    next(err)
+    next(err , {message : "something went wrong! we are fixing it"})
   }
 };
 
@@ -69,7 +69,7 @@ exports.updateArticleGet = async (req, res, next) => {
   const article = await articleModel.findById(id);
   res.render("editArticle", { article });
     } catch (err) {
-        next(err)
+      next(err , {message : "something went wrong! we are fixing it"})
     }
   
 };
@@ -84,7 +84,7 @@ exports.updateArticlePost = async (req, res, next) => {
     );
     res.redirect("/myArticles"); // Redirect to the articles page after updating
   } catch (err) {
-    next(err)
+    next(err , {message : "something went wrong! we are fixing it"})
   }
 };
 
@@ -102,6 +102,6 @@ exports.deleteArticle = async (req, res, next) => {
 
     res.redirect("/myArticles");
   } catch (err) {
-    next(err)
+    next(err , {message : "something went wrong! we are fixing it"})
 }
 }
