@@ -18,7 +18,7 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 
-mongoose.connect(process.env.CONNECTION)
+mongoose.connect('mongodb://127.0.0.1/alumni')
 .then(()=>{
     console.log("db connected");
 })
@@ -51,17 +51,16 @@ app.use(articleRoute)
 
 // error handeling middleware
 app.use((err, req, res, next) => {
-    
-    console.log(err.message);
+    let message = err.message
+
     console.error(err.stack);
 
     // Set response status code
     res.status(err.status || 500);
 
-    let message = err.message
 
     // Render a page with an error message
-    res.render('error', { message: message|| "OOPS! Something went wrong. Please try again later" });
+    res.render('error', { message:  message });
 });
 
 
