@@ -10,7 +10,8 @@ const app = express()
 const alumniRoute = require('./routes/alumni')
 const meetingRoute = require('./routes/meeting')
 const authRoute = require('./routes/authRoute')
-const articleRoute = require('./routes/articles')
+const articleRoute = require('./routes/articles');
+const { log } = require('console');
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieParser())
@@ -51,16 +52,7 @@ app.use(articleRoute)
 
 // error handeling middleware
 app.use((err, req, res, next) => {
-    let message = err.message
-
-    console.error(err.stack);
-
-    // Set response status code
-    res.status(err.status || 500);
-
-
-    // Render a page with an error message
-    res.render('error', { message:  message });
+    res.send('<h1> Something went Wrong </h1>')
 });
 
 

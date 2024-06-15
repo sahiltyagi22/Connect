@@ -3,7 +3,9 @@ const mongoose = require('mongoose')
 const alumniSchema = mongoose.Schema({
 
     email : {
-        type :String
+        type :String,
+        required :true,
+        unique : true
     },
 
     name :{

@@ -5,25 +5,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Verification</title>
+    <!-- Include Tailwind CSS via CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Optional: Include your own stylesheet -->
     <link rel="stylesheet" href="/stylesheet/styles.css">
 
 </head>
 
-<body>
-   
-    <div class="verification-container">
-        <h2>Verification</h2>
+<body class="bg-gray-100">
+
+    <div class="verification-container mx-auto max-w-md bg-white p-8 rounded-lg shadow-md">
+        <h2 class="text-2xl font-semibold mb-6">Verification</h2>
         <form action="/validation" method="POST">
-            <div class="form-group">
-                <label for="code">Enter Code:</label>
-                <input type="text" id="code" name="token" required>
+            <div class="mb-4">
+                <label for="code" class="block text-gray-700 font-bold mb-2">Enter Code:</label>
+                <input type="text" id="code" name="token" required
+                       class="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:border-blue-400">
             </div>
-            <button type="submit">Submit</button>
+            <button type="submit" class="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-600">Submit</button>
         </form>
-        <div class="register-link">
-            <p>Not registered yet? <a href="/auth/student">Register as a student</a></p>
+        <div class="mt-4 text-center text-gray-600">
+            <p>Not registered yet? <a href="/auth/student" class="text-blue-500">Register as a student</a></p>
         </div>
     </div>
+
 </body>
 
 </html>

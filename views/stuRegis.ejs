@@ -3,38 +3,102 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Student Registration</title>
-  <link rel="stylesheet" href="/stylesheet/styles.css">
+  <title>Navbar</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-  <div class="container">
-    <h2>Student Registration</h2>
-    <form action="/auth/student" method="POST">
-      <div class="form-group">
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
+<body class="bg-gray-100">
+  <nav class="bg-gray-800 p-4">
+    <div class="container mx-auto">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center">
+          <img src="/assets/logo.png" alt='Logo' class='w-16 h-16 mr-2 rounded-full shadow-lg'/>
+          <div class="text-white text-3xl font-bold">Connect</div>
+        </div>
+        <ul class="flex space-x-4">
+          <li>
+            <a href="#" class="text-white hover:underline">Home</a>
+          </li>
+          <li>
+            <a href="#" class="text-white hover:underline">About</a>
+          </li>
+          <li>
+            <a href="#" class="text-white hover:underline">Contact</a>
+          </li>
+        </ul>
       </div>
-      <div class="form-group">
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
+    </div>
+  </nav>
+
+  <div class="max-w-md mx-auto mt-8 p-6 bg-white rounded-lg shadow-md bg-gray-200">
+    <h2 class="text-3xl font-semibold mb-4 text-gray-800">Registration</h2>
+    <form action="/auth/student" method="post">
+      <div class="mb-4">
+        <label for="name" class="block text-sm font-medium text-gray-700">Name:</label>
+        <input
+          id="name"
+          class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+          type="text"
+          name="name"
+          required
+        />
       </div>
-      <div class="form-group">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required>
+
+      <div class="mb-4">
+        <label for="school" class="block text-sm font-medium text-gray-700">Email:</label>
+        <input
+          id="email"
+          class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+          type="email"
+          name="email"
+          required
+        />
       </div>
-      <div class="form-group">
-        <label for="rollno">Roll Number:</label>
-        <input type="text" id="rollno" name="rollno" required>
+
+      <div class="mb-4">
+        <label for="password" class="block text-sm font-medium text-gray-700">Password:</label>
+        <input
+          id="password"
+          class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+          type="password"
+          name="password"
+          required
+        />
       </div>
-      <div class="form-group">
-        <label for="school">School:</label>
-        <input type="text" id="school" name="school" required>
+
+      <div class="mb-4">
+        <label for="school" class="block text-sm font-medium text-gray-700">School:</label>
+        <input
+          id="school"
+          class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+          type="text"
+          name="school"
+          required
+        />
       </div>
-      <div class="form-group">
-        <label for="year">Year:</label>
-        <input type="text" id="year" name="year" required>
+      
+      <div class="mb-4">
+        <label for="company" class="block text-sm font-medium text-gray-700">Roll No:</label>
+        <input
+          id="company"
+          class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+          type="text"
+          name="rollno"
+          required
+        />
       </div>
-      <button type="submit">Register</button>
+
+      <div class="flex justify-center">
+        <button
+          class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline"
+          type="submit"
+        >
+          Register
+        </button>
+      </div>
+
+      <div class="mt-4 text-sm text-gray-700 text-center">
+        Already registered? <a href="/auth/login" class="text-blue-500 hover:underline">Login</a>
+      </div>
     </form>
   </div>
 </body>

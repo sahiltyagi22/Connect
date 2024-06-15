@@ -49,7 +49,7 @@ exports.validationPost = (req, res, next) => {
 exports.alumniRegisterPost = async (req, res, next) => {
   try {
     // Handle file upload using multer middleware
-    upload.single("profilePicture")(req, res, async function (err) {
+    upload.single("filename")(req, res, async function (err) {
       if (err) {
         return next(err , {message : "there is an error uploading profile"})
       }
@@ -93,7 +93,7 @@ exports.alumniRegisterPost = async (req, res, next) => {
       res.redirect("/");
     });
   } catch (error) {
-    next(error , {message : 'Something went wrong! Please try again later'});
+    res.render('error')
   }
 };
 
@@ -108,7 +108,7 @@ exports.studentRegisterGet = (req, res, next) => {
 
 exports.studentRegisterPost = async (req, res, next) => {
   try {
-    const { email, name, password, rollno, school, year } = req.body;
+    const { email, name, password, rollno, school } = req.body;
 
     const studentExists = await studentModel.findOne({ email: email });
     if (studentExists) {
@@ -122,7 +122,6 @@ exports.studentRegisterPost = async (req, res, next) => {
       password: hashedPassword,
       rollno: rollno,
       school: school,
-      year: year,
     });
 
     await newStudent.save();
@@ -140,7 +139,7 @@ exports.studentRegisterPost = async (req, res, next) => {
 
     return res.redirect("/");
   } catch (err) {
-    next(err , {message : "Something went Wrong! Please try again later"});
+    res.render('error')
   }
 };
 
@@ -152,7 +151,7 @@ exports.loginGet = (req, res) => {
     }
     res.render("login");
   } catch (err) {
-    next(err  , {message : "something went wrong! we are fixing it"});
+    res.render('error')
   }
 };
 
@@ -187,12 +186,12 @@ exports.loginPost = async (req, res, next) => {
     }
 
     // If no user found or password doesn't match, create a custom error
-    const err = new Error("Invalid credentials");
-    err.statusCode = 401;
-    throw err;
+    alert('Invalid username or password')
+    res.redirect('/auth/login')
+    
   } catch (err) {
     // Pass the error to the next middleware
-    next(err , {message : 'something went wrong! we are fixing it'});
+    res.render('error')
   }
 };
 

@@ -1,63 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alumni Registration</title>
-    <!-- Include Tailwind CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Navbar</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-gray-100">
-    <!-- Navbar -->
-    <nav class="bg-black text-white shadow-lg">
-        <div class="container mx-auto px-4 py-2 flex justify-between items-center">
-            <div>
-                <a href="/" class="text-xl font-bold">Connect</a>
-            </div>
-            <div>
-                <ul class="flex space-x-4">
-                    <li><a href="/">Home</a></li>
-                </ul>
-            </div>
+  <nav class="bg-gray-800 p-4">
+    <div class="container mx-auto">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center">
+          <img src="\images\logo.png" alt='Logo' class='w-16 h-16 mr-2 rounded-full shadow-lg'/>
+          <div class="text-white text-3xl font-bold">Connect</div>
         </div>
-    </nav>
-
-    <!-- Form container -->
-    <div class="container mx-auto px-4 py-8 flex justify-center items-center h-screen">
-        <div class="bg-white p-8 rounded-lg shadow-lg">
-            <h1 class="text-3xl font-bold mb-4">Alumni Registration</h1>
-            <form action="/auth/alumni" method="POST" enctype="multipart/form-data">
-                <div class="mb-4">
-                    <label for="name" class="block">Name:</label>
-                    <input type="text" id="name" name="name" class="form-input w-full border-2 border-gray-300 rounded-md h-10" required>
-                </div>
-                <div class="mb-4">
-                    <label for="email" class="block">Email:</label>
-                    <input type="email" id="email" name="email" class="form-input w-full border-2 border-gray-300 rounded-md h-10" required>
-                </div>
-                <div class="mb-4">
-                    <label for="password" class="block">Password:</label>
-                    <input type="password" id="password" name="password" class="form-input w-full border-2 border-gray-300 rounded-md h-10" required>
-                </div>
-                <div class="mb-4">
-                    <label for="designation" class="block">Designation:</label>
-                    <input type="text" id="designation" name="designation" class="form-input w-full border-2 border-gray-300 rounded-md h-10" required>
-                </div>
-                <div class="mb-4">
-                    <label for="company" class="block">Company:</label>
-                    <input type="text" id="company" name="company" class="form-input w-full border-2 border-gray-300 rounded-md h-10" required>
-                </div>
-                <div class="mb-4">
-                    <label for="school" class="block">School:</label>
-                    <input type="text" id="school" name="school" class="form-input w-full border-2 border-gray-300 rounded-md h-10" required>
-                </div>
-                <div class="mb-4">
-                    <label for="profilePicture" class="block">Profile Picture:</label>
-                    <input type="file" id="profilePicture" name="profilePicture" class="form-input w-full border-2 border-gray-300 rounded-md h-10">
-                </div>
-                <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded-lg shadow">Register</button>
-            </form>
-        </div>
+        <ul class="flex space-x-4">
+          <li>
+            <a href="/" class="text-white hover:underline">Home</a>
+          </li>
+          <li>
+            <a href="/" class="text-white hover:underline">Contact</a>
+          </li>
+        </ul>
+      </div>
     </div>
+  </nav>
+
+  <div class="max-w-md mx-auto mt-8 p-6 bg-white rounded-lg shadow-md bg-gray-200">
+    <h2 class="text-3xl font-semibold mb-4 text-gray-800">Registration</h2>
+    <form action="/auth/alumni" method="post" >
+      <div class="mb-4">
+        <label for="name" class="block text-sm font-medium text-gray-700">Name:</label>
+        <input
+          id="name"
+          class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+          type="text"
+          name="name"
+          required
+        />
+      </div>
+
+      <div class="mb-4">
+        <label for="school" class="block text-sm font-medium text-gray-700">Email:</label>
+        <input
+          id="email"
+          class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+          type="email"
+          name="email"
+          required
+        />
+      </div>
+
+      <div class="mb-4">
+        <label for="password" class="block text-sm font-medium text-gray-700">Password:</label>
+        <input
+          id="password"
+          class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+          type="password"
+          name="password"
+          required
+        />
+      </div>
+
+      <div class="mb-4">
+        <label for="school" class="block text-sm font-medium text-gray-700">School:</label>
+        <input
+          id="school"
+          class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+          type="text"
+          name="school"
+          required
+        />
+      </div>
+      
+      <div class="mb-4">
+        <label for="company" class="block text-sm font-medium text-gray-700">Company:</label>
+        <input
+          id="company"
+          class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+          type="text"
+          name="company"
+          required
+        />
+      </div>
+
+      <div class="mb-4">
+        <label for="designation" class="block text-sm font-medium text-gray-700">Designation:</label>
+        <input
+          id="company"
+          class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+          type="text"
+          name="designation"
+          required
+        />
+      </div>
+
+      <div class="mb-4">
+        <label for="image" class="block text-sm font-medium text-gray-700">Profile Picture:</label>
+        <input
+          id="image"
+          class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+          type="file"
+          name="filename"
+          accept="image/*" <!-- Allow only image files -->
+        />
+      </div>
+
+      <div class="flex justify-center">
+        <button
+          class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline"
+          type="submit"
+        >
+          Register
+        </button>
+      </div>
+
+      <div class="mt-4 text-sm text-gray-700 text-center">
+        Already registered? <a href="/auth/login" class="text-blue-500 hover:underline">Login</a>
+      </div>
+    </form>
+  </div>
 </body>
 </html>

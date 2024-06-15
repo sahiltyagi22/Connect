@@ -3,9 +3,8 @@ const alumniModel = require("./../model/alumniModel");
 exports.gettingSchoolWise = async (req, res, next) => {
   try {
     let school = req.params.school;
-    const alumni = await alumniModel
-      .find({ school: school })
-      .select("-password");
+    console.log(typeof(school));
+    const alumni = await alumniModel.find({school : school});
     console.log(alumni);
     res.render("schoolWise", { alumni: alumni });
   } catch (err) {
@@ -54,7 +53,7 @@ exports.alumniSearch = async (req, res, next) => {
 exports.getAlumniArticles = async (req, res, next) => {
     try {
         if (req.user.role !== "alumni") {
-            return res.send("you are not authorized");
+            return res.redirect('/')
           }
         
           const alumniId = req.user.id;
