@@ -25,7 +25,7 @@ if(!mongo_uri){
 }
 
 
-mongoose.connect(mongo_uri,{
+mongoose.connect('mongodb+srv://officialsahiltyagi119:E6fA68q8GJjsnx5H@cluster0.cqlzhv7.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',{
     useUnifiedTopology: true,
 })
 .then(()=>{
