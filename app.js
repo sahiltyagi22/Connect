@@ -18,8 +18,16 @@ app.use(cookieParser())
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
+let mongo_uri = process.env.MONGOCONNECTION 
 
-mongoose.connect(process.env.MONGOCONNECTION)
+if(!mongo_uri){
+    console.log('incorrect mongoConnection');
+}
+
+
+mongoose.connect(mongo_uri,{
+    useUnifiedTopology: true,
+})
 .then(()=>{
     console.log("db connected");
 })
