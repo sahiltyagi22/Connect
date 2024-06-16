@@ -65,7 +65,7 @@ app.all("*" , (req,res)=>{
 })
 
 // process port
-let PORT = process.env.PORT || 4001
+let PORT =  4001
 app.listen( PORT,()=>{
     console.log('server is running')
 })
