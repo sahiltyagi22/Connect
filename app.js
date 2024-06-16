@@ -18,14 +18,14 @@ app.use(cookieParser())
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-let mongo_uri = process.env.MONGOCONNECTION 
+let mongo_uri = process.env.MONGO_URI
 
 if(!mongo_uri){
     console.log('incorrect mongoConnection');
 }
 
 
-mongoose.connect('mongodb+srv://officialsahiltyagi119:E6fA68q8GJjsnx5H@cluster0.cqlzhv7.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',{
+mongoose.connect(mongo_uri,{
     useUnifiedTopology: true,
 })
 .then(()=>{
