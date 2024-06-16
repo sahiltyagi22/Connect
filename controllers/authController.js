@@ -1,4 +1,4 @@
-let validationToken = "12345";
+let validationToken = process.env.SECRETCODE;
 
 const mongoose = require("mongoose");
 const cookie = require("cookie");
