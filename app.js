@@ -19,15 +19,12 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 let mongo_uri = process.env.MONGO_URI
-
 if(!mongo_uri){
     console.log('incorrect mongoConnection');
 }
 
 
-mongoose.connect(mongo_uri,{
-    useUnifiedTopology: true,
-})
+mongoose.connect(mongo_uri)
 .then(()=>{
     console.log("db connected");
 })
