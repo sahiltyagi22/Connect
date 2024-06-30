@@ -1,0 +1,54 @@
+<!-- new-poll.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Poll</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheet/styles.css"> <!-- Assuming your CSS file is in the public directory -->
+</head>
+
+<body class="bg-gray-100">
+    <!-- Navbar -->
+    <nav class="bg-gray-800 p-4">
+        <div class="container mx-auto flex items-center justify-between">
+            <div class="flex items-center">
+                <img src="/images/logo.png" alt='Logo' class='w-16 h-16 mr-2 rounded-full shadow-lg'>
+                <div class="text-white text-3xl font-bold">Connect</div>
+            </div>
+            <ul class="flex space-x-4">
+                <li>
+                    <a href="/" class="text-white hover:underline">Home</a>
+                </li>
+                <li>
+                    <a href="/" class="text-white hover:underline">Contact</a>
+                </li>
+                <li>
+                    <a href="/polls" class="text-white hover:underline">Back to Polls</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="container mx-auto py-8">
+        <h1 class="text-3xl font-bold mb-4">Create New Poll</h1>
+
+        <!-- Poll creation form -->
+        <form action="/new-poll" method="POST" class="bg-white p-6 rounded-lg shadow-lg">
+            <div class="mb-4">
+                <label for="title" class="block text-sm font-bold text-gray-700">Title</label>
+                <input type="text" id="title" name="title" class="w-full mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" required>
+            </div>
+            <div class="mb-4">
+                <label for="description" class="block text-sm font-bold text-gray-700">Description (Max 30 words)</label>
+                <textarea id="description" name="description" rows="3" class="w-full mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" maxlength="120" required></textarea>
+            </div>
+            <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-full shadow-lg">Create Poll</button>
+        </form>
+    </div>
+</body>
+
+</html>

@@ -5,6 +5,10 @@ const pollSchema = mongoose.Schema({
         type : String
     },
 
+    description :{
+        type:String
+    },
+
     author:{
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'alumniModel', 
@@ -12,7 +16,8 @@ const pollSchema = mongoose.Schema({
     },
 
     votecount:{
-        type:Number
+        type:Number,
+        default:0
     }
 
 })

@@ -11,6 +11,7 @@ const alumniRoute = require('./routes/alumni')
 const meetingRoute = require('./routes/meeting')
 const authRoute = require('./routes/authRoute')
 const articleRoute = require('./routes/articles');
+const pollsRoute = require('./routes/polls')
 const { log } = require('console');
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -54,11 +55,15 @@ app.use(alumniRoute)
 // article route
 app.use(articleRoute)
 
+// article route
+console.log('yaha tak aaya');
+app.use(pollsRoute)
+
 
 // error handeling middleware
-app.use((err, req, res, next) => {
-    res.send('<h1> Something went Wrong </h1>')
-});
+// app.use((err, req, res, next) => {
+//     res.send('<h1> Something went Wrong </h1>')
+// });
 
 app.all("*" , (req,res)=>{
    res.render('notFound')

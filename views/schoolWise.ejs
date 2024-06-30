@@ -3,12 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Person Details</title>
+  <title>Alumni Details</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-
   <style>
     .person-card {
       display: flex;
@@ -32,46 +28,43 @@
   </style>
 </head>
 <body>
-    <nav class="bg-gray-800 p-4">
-        <div class="container mx-auto">
-          <div class="flex items-center justify-between">
-            <div class="flex items-center">
-              <img src="/images/logo.png" alt='Logo' class='w-16 h-16 mr-2 rounded-full shadow-lg'/>
-              <div class="text-white text-3xl font-bold">Connect</div>
-            </div>
-            <ul class="flex space-x-4">
-              <li>
-                <a href="/" class="text-white hover:underline">Home</a>
-              </li>
-              <li>
-                <a href="#" class="text-white hover:underline">Contact</a>
-              </li>
-            </ul>
-          </div>
+  <nav class="bg-gray-800 p-4">
+    <div class="container mx-auto">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center">
+          <img src="/images/logo.png" alt='Logo' class='w-16 h-16 mr-2 rounded-full shadow-lg'/>
+          <div class="text-white text-3xl font-bold">Connect</div>
         </div>
-      </nav>
-    
-      <% alumni.forEach(function(alumni){ %>
-        <div class="person-card bg-gray-300">
-            <img src="/images/profile-picture.jpeg" alt="John Doe">
-            <div class="person-details">
-                <h2><strong>Name:</strong><%= alumni.name %></h2>
-                <p><strong>Company:</strong> <%= alumni.company %></p>
-                <p><strong>Designation:</strong> <%= alumni.designation %></p>
-              <!-- Add other fields as needed -->
-            </div>
-            <div class="flex items-center">
-              <a href="http://localhost:4004" target="_blank" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Connect</a>
-          </div>
-          
-          
-        
-            </div>
+        <ul class="flex space-x-4">
+          <li><a href="/" class="text-white hover:underline">Home</a></li>
+          <li><a href="#" class="text-white hover:underline">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
-   <%   }) %>
-  
+  <div class="max-w-4xl mx-auto mt-8">
+    <% alumni.forEach(function(alumni) { %>
+      <div class="person-card bg-gray-300">
+        <% if (alumni.profile) { %>
+          <img src="/images/uploads/<%= alumni.profile %>" alt="<%= alumni.name %>">
+        <% } else { %>
+          <!-- Placeholder image or default image when profile image is not available -->
+          <img src="/images/default-profile.png" alt="Default Profile">
+        <% } %>
+
+        <div class="person-details">
+          <h2><strong>Name:</strong> <%= alumni.name %></h2>
+          <p><strong>Company:</strong> <%= alumni.company %></p>
+          <p><strong>Designation:</strong> <%= alumni.designation %></p>
+          <!-- Add other fields as needed -->
+        </div>
+
+        <div class="flex items-center">
+          <a href="http://localhost:4004" target="_blank" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Connect</a>
+        </div>
+      </div>
+    <% }) %>
   </div>
-  </div>
-  <!-- Add more person cards as needed -->
 </body>
 </html>

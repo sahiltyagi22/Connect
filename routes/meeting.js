@@ -8,7 +8,6 @@ const alumniModel = require("../model/alumniModel");
 
 router.use("/meetings", tokenValidation);
 router.use("/mymeet", tokenValidation);
-router.use("/poll", tokenValidation);
 router.use("/new-meeting", tokenValidation);
 router.use("/delete-meeting/:id", tokenValidation);
 
@@ -50,8 +49,5 @@ router
       res.status(500).send('Internal Server Error');
   }
   })
-
-// getting all polls and creating
-router.route("/poll").get(meeting.allMeetingsGet).post(meeting.createPoll);
 
 module.exports = router;

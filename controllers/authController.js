@@ -49,7 +49,7 @@ exports.validationPost = (req, res, next) => {
 exports.alumniRegisterPost = async (req, res, next) => {
   try {
     // Handle file upload using multer middleware
-    upload.single("filename")(req, res, async function (err) {
+    upload.single("filename")(req, res,async function (err) {
       if (err) {
         return next(err , {message : "there is an error uploading profile"})
       }
@@ -58,10 +58,9 @@ exports.alumniRegisterPost = async (req, res, next) => {
       const { email, name, password, designation, company, school } = req.body;
 
       // Get file path of uploaded image
-      const profilePicture =  req.file ? req.file.filename : null;
+      const profilePicture =   req.file.filename;
 
       // encrypting the password
-
       const hashedPassword = await bcrypt.hash(password, 10);
 
       // Create a new alumni instance
@@ -93,6 +92,7 @@ exports.alumniRegisterPost = async (req, res, next) => {
       res.redirect("/");
     });
   } catch (error) {
+    console.log(error);
     res.render('error')
   }
 };

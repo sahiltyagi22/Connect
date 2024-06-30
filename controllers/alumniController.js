@@ -3,9 +3,7 @@ const alumniModel = require("./../model/alumniModel");
 exports.gettingSchoolWise = async (req, res, next) => {
   try {
     let school = req.params.school;
-    console.log(typeof(school));
     const alumni = await alumniModel.find({school : school});
-    console.log(alumni);
     res.render("schoolWise", { alumni: alumni });
   } catch (err) {
     next(err , {message : "something went wrong! we are fixing it"})

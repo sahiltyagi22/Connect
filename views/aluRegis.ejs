@@ -28,7 +28,9 @@
 
   <div class="max-w-md mx-auto mt-8 p-6 bg-white rounded-lg shadow-md bg-gray-200">
     <h2 class="text-3xl font-semibold mb-4 text-gray-800">Registration</h2>
-    <form action="/auth/alumni" method="post" >
+
+    <!-- form -->
+    <form action="/auth/alumni"   enctype="multipart/form-data"  method="post" >
       <div class="mb-4">
         <label for="name" class="block text-sm font-medium text-gray-700">Name:</label>
         <input
@@ -102,7 +104,6 @@
           class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
           type="file"
           name="filename"
-          accept="image/*" <!-- Allow only image files -->
         />
       </div>
 
